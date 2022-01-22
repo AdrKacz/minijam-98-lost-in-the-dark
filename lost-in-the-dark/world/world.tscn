@@ -1,27 +1,43 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://world/world.gd" type="Script" id=1]
 [ext_resource path="res://controller/controller.tscn" type="PackedScene" id=2]
 [ext_resource path="res://wall/wall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://light-column/light-column.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ground/ground.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game-ui/game-ui.tscn" type="PackedScene" id=6]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="ProceduralSky" id=4]
 
-[sub_resource type="CubeMesh" id=2]
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 4 )
+background_energy = 0.01
+fog_depth_enabled = false
+fog_depth_begin = 0.0
+fog_depth_end = 10.0
+fog_depth_curve = 0.1
+glow_enabled = true
+glow_blend_mode = 0
+glow_hdr_threshold = 0.9
+glow_bicubic_upscale = true
 
 [node name="World" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -167.695, 0 )
 script = ExtResource( 1 )
+Ground = ExtResource( 5 )
 Wall = ExtResource( 3 )
+Goal = ExtResource( 4 )
+width = 5
+height = 5
 p = 0.4
 
-[node name="Ground" type="StaticBody" parent="."]
-
-[node name="CollisionShape" type="CollisionShape" parent="Ground"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Ground"]
-mesh = SubResource( 2 )
-material/0 = null
-
 [node name="Controller" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 10, 20, 10 )
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 20, 0 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="Environment" type="Spatial" parent="."]
+
+[node name="GameUI" parent="." instance=ExtResource( 6 )]

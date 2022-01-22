@@ -45,6 +45,12 @@ ui_down={
  ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="controller"
+3d_physics/layer_2="object"
+3d_physics/layer_3="other"
+
 [physics]
 
 common/enable_pause_aware_picking=true

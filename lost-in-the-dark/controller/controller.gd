@@ -67,7 +67,6 @@ func process_movement(delta):
 	horizontal_velocity = horizontal_velocity.linear_interpolate(target, current_acceleration * delta)
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
-	print(velocity.z)
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0), 0.05, 4, deg2rad(max_slope_angle))
 	
 func _input(event):

@@ -6,7 +6,8 @@
 
 [sub_resource type="CapsuleMesh" id=2]
 
-[node name="Controller" type="KinematicBody"]
+[node name="Controller" type="KinematicBody" groups=["controller"]]
+collision_mask = 4
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -20,3 +21,10 @@ material/0 = null
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0 )
+far = 200.0
+
+[node name="SpotLight" type="SpotLight" parent="Camera"]
+light_color = Color( 0.909804, 0.831373, 1, 1 )
+light_energy = 0.5
+spot_range = 10.0
+spot_angle = 90.0
