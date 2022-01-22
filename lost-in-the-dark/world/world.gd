@@ -14,29 +14,11 @@ export (float, 5, 50) var spawn_height = 20 # height where the controller is cre
 onready var game_ui : Control = $GameUI
 onready var environment : Spatial = $Environment
 onready var controller : KinematicBody = $Controller
+onready var goal : Spatial = $Goal
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	randomize()
-	init_world(width, height)
-
-func delete_children(node) -> void:
-	for n in node.get_children():
-		node.remove_child(n)
-		n.queue_free()
-
-func world_done() -> void:
-#	game_ui.update_score(1)
-#	game_ui.reset_time()
-	init_world(width, height)
-
-func init_world(w : int, h : int) -> void:
-	# Clear previous world
-	delete_children(environment)
-	
 	# Create new world
-	width = w
-	height = h
 	var map : Array = generate_random_map()
 	display_map(map)
 	controller.translation = Vector3(0, spawn_height, 0)
@@ -70,10 +52,10 @@ func generate_random_map() -> Array:
 	var map : Array = []
 	while true:
 		map.clear()
-		for i in range(height):
+		for _i in range(height):
 			var map_i : Array = []
-			for j in range(width):
-				if randf() < p:
+			for _j in range(width):
+				if Global.random_number_generator.randf() < p:
 					map_i.append('wall')
 				else:
 					map_i.append('ground')
@@ -100,18 +82,12 @@ func display_obj(obj : String, i : int, j : int) -> void:
 			ground.translate(Vector3(j * dx, 0, i * dz))
 			environment.add_child(ground)
 		'goal':
-			var goal = Goal.instance()
 			goal.translate(Vector3(j * dx, 0, i * dz))
-			environment.add_child(goal)
-			goal.connect("controller_touch_it", self, "world_done")
 		_:
 			print('Object cannot be display: ', obj) 
 	
 func display_map(map : Array) -> void:
 	# Create map
-	var dx : int = 2
-	var dy : int = 2
-	var dz : int = 2
 	for i in map.size():
 		for j in map[i].size():
 			if map[i][j] == 'wall':
@@ -123,7 +99,20 @@ func display_map(map : Array) -> void:
 				display_obj('goal', i, j)
 
 # Check if controller stil on map
-func _physics_process(delta):
+func _physics_process(_delta):
 	if controller.translation.y < -1:
 		print('You fall!')
-		init_world(width, height)
+		seed(str(Global.current_seed).hash())
+		Global.reset_seed()
+		Global.reload_scene()
+
+
+func _on_Goal_controller_touch_it():
+	Global.update_score(1)
+	Global.randomize_random_number_generator()
+	Global.reload_scene()
+
+
+func _on_Controller_hit_restart():
+	Global.reset_seed()
+	Global.reload_scene()

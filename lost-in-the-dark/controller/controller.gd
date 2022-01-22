@@ -1,5 +1,6 @@
 extends KinematicBody
 
+signal hit_restart
 
 export (float) var max_speed : float = 20
 export (float) var acceleration : float = 4.5
@@ -21,6 +22,9 @@ func _physics_process(delta):
 	process_movement(delta)
 	
 func process_input():
+	# Restart ?
+	if Input.is_action_just_pressed("restart"):
+		emit_signal("hit_restart")
 	# Walking
 	direction = Vector3()
 	var camera_xform : Transform = camera.global_transform

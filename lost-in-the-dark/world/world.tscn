@@ -28,8 +28,6 @@ script = ExtResource( 1 )
 Ground = ExtResource( 5 )
 Wall = ExtResource( 3 )
 Goal = ExtResource( 4 )
-width = 5
-height = 5
 p = 0.4
 
 [node name="Controller" parent="." instance=ExtResource( 2 )]
@@ -41,3 +39,8 @@ environment = SubResource( 3 )
 [node name="Environment" type="Spatial" parent="."]
 
 [node name="GameUI" parent="." instance=ExtResource( 6 )]
+
+[node name="Goal" parent="." instance=ExtResource( 4 )]
+
+[connection signal="hit_restart" from="Controller" to="." method="_on_Controller_hit_restart"]
+[connection signal="controller_touch_it" from="Goal" to="." method="_on_Goal_controller_touch_it"]
