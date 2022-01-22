@@ -61,14 +61,13 @@ func generate_random_map() -> Array:
 	
 func display_map(map : Array) -> void:
 	# Extend and shift ground
+	ground.translate(Vector3(w - 1, 0, h - 1))
 	ground.scale.x = w
 	ground.scale.z = h
-	ground.translate(Vector3(1, 0, 1))
 	# Create wall
 	var dx : int = 2
 	var dy : int = 2
 	var dz : int = 2
-	print(map)
 	for i in map.size():
 		for j in map[i].size():
 			if map[i][j] == 'wall':
