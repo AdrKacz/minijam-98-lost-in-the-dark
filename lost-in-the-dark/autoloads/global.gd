@@ -3,10 +3,10 @@ extends Node
 var menu_scene_path : String = "res://menu/menu.tscn"
 var game_scene_path : String = "res://world/world.tscn"
 
-var time_max : float = 10
+var time_max : float = 30
 var time_left : float = time_max
-var score : int = 25
-var best_score : int = 38
+var score : int = -1 # -1 at start so you can score 0 later ..
+var best_score : int = 0
 var random_seed : int = 0
 var width : int = 1
 var height : int = 1
@@ -37,26 +37,33 @@ func reset_time() -> void:
 	
 func update_score(delta : int) -> void:
 	score += delta
-	best_score = max(score, best_score)
+	if score > best_score:
+		best_score = score
 	
-func set_dimension(w : int, h : int):
+func set_dimension(w : int, h : int) -> void:
 	width = w
 	height = h
 	
-func reload_scene():
-	get_tree().reload_current_scene()
+func reload_scene() -> void:
+	var err : int = get_tree().reload_current_scene()
+	if err != 0:
+		print('[reload_scene] Something went wrong, error code: ', err)
 	
-func load_game_scene():
-	get_tree().change_scene(game_scene_path)
+func load_game_scene() -> void:
+	var err : int = get_tree().change_scene(game_scene_path)
+	if err != 0:
+		print('[reload_scene] Something went wrong, error code: ', err)
 	
-func load_menu_scene():
-	get_tree().change_scene(menu_scene_path)
+func load_menu_scene() -> void:
+	var err : int = get_tree().change_scene(menu_scene_path)
+	if err != 0:
+		print('[reload_scene] Something went wrong, error code: ', err)
 	
-func _process(delta):
+func _process(delta) -> void:
 	if time_left < 0:
 		return
 	time_left -= delta
 	
-func get_time_left():
+func get_time_left() -> float:
 	return max(time_left, 0)
 	

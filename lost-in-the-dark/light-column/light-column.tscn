@@ -29,6 +29,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
 visible = false
 
 [node name="Column" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0 )
 collision_layer = 2
 collision_mask = 0
 
@@ -41,7 +42,7 @@ material/0 = SubResource( 2 )
 shape = SubResource( 3 )
 
 [node name="Flames" parent="." instance=ExtResource( 1 )]
-transform = Transform( -1.31134e-07, -3, 0, 3, -1.31134e-07, 0, 0, 0, 3, 0, 40, 0 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 2, 0 )
 
 [node name="Area" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )

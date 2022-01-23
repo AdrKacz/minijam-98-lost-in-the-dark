@@ -13,6 +13,7 @@ var velocity : Vector3 = Vector3()
 var direction : Vector3 = Vector3()
 
 onready var camera : Camera = $Camera
+onready var audio_footsteps : AudioStreamPlayer = $AudioFootsteps
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -20,6 +21,7 @@ func _ready():
 func _physics_process(delta):
 	process_input()
 	process_movement(delta)
+	process_sound()
 	
 func process_input():
 	# Restart ?
@@ -72,6 +74,12 @@ func process_movement(delta):
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
 	velocity = move_and_slide(velocity, Vector3(0, 1, 0), 0.05, 4, deg2rad(max_slope_angle))
+	
+func process_sound():
+	if is_on_floor() and direction.length_squared() > 0:
+		audio_footsteps.is_playing = true
+	else:
+		audio_footsteps.is_playing = false
 	
 func _input(event):
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:

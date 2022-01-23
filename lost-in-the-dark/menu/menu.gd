@@ -6,7 +6,6 @@ export (PackedScene) var Wall : PackedScene
 
 onready var environment : Spatial = $Environment
 onready var fire : Spatial = $Fire
-onready var spatial_camera : Spatial = $SpatialCamera
 
 func _ready():
 	# Camera is in 0.0 minus offsets (see args 2 and 3),  looking right

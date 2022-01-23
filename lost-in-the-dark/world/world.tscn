@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://world/world.gd" type="Script" id=1]
 [ext_resource path="res://controller/controller.tscn" type="PackedScene" id=2]
@@ -7,12 +7,18 @@
 [ext_resource path="res://ground/ground.tscn" type="PackedScene" id=5]
 [ext_resource path="res://game-ui/game-ui.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/world_environment.tres" type="Environment" id=7]
+[ext_resource path="res://audio-random-player/audio-random-player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://world/doorOpen_000.ogg" type="AudioStream" id=9]
+[ext_resource path="res://world/doorOpen_001.ogg" type="AudioStream" id=10]
+[ext_resource path="res://world/doorOpen_002.ogg" type="AudioStream" id=11]
 
 [node name="World" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -167.695, 0 )
 script = ExtResource( 1 )
 Ground = ExtResource( 5 )
 Wall = ExtResource( 3 )
+width = 20
+height = 20
 p = 0.4
 
 [node name="Controller" parent="." instance=ExtResource( 2 )]
@@ -26,6 +32,11 @@ environment = ExtResource( 7 )
 [node name="GameUI" parent="." instance=ExtResource( 6 )]
 
 [node name="Goal" parent="." instance=ExtResource( 4 )]
+
+[node name="AudioDoors" parent="." instance=ExtResource( 8 )]
+volume_db = -6.0
+audio_streams = [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ]
+just_once = true
 
 [connection signal="hit_restart" from="Controller" to="." method="_on_Controller_hit_restart"]
 [connection signal="controller_touch_it" from="Goal" to="." method="_on_Goal_controller_touch_it"]

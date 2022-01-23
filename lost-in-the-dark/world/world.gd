@@ -15,12 +15,16 @@ onready var environment : Spatial = $Environment
 onready var controller : KinematicBody = $Controller
 onready var goal : Spatial = $Goal
 
+onready var audio_doors : AudioStreamPlayer = $AudioDoors
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Create new world
 	var map : Array = generate_random_map()
 	display_map(map)
 	controller.translation = Vector3(0, spawn_height, 0)
+	# Play sound
+	audio_doors.is_playing = true
 	
 func is_valid_map(map : Array) -> bool:
 	# Returns true if the given map has at least one path

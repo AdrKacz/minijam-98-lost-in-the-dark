@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/daughter-of-the-void.ogg-17af23cf2ca9a5cda5b66a772d1ef22c.oggstr"
+
+[deps]
+
+source_file="res://autoloads/daughter-of-the-void.ogg"
+dest_files=[ "res://.import/daughter-of-the-void.ogg-17af23cf2ca9a5cda5b66a772d1ef22c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
