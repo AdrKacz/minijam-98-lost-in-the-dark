@@ -42,7 +42,7 @@ func get_level() -> Dictionary:
 	# Find time
 	var time : float = Global.time_max
 	if Global.score == 0:
-		time = 20
+		time = 30
 	elif Global.score > 30:
 		time -= 0.5
 		

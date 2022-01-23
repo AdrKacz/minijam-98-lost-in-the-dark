@@ -17,7 +17,7 @@ func _ready():
 		elif Global.score < 5:
 			custom_text = "I'm sure you can do better!"
 		elif Global.score < 25:
-			custom_text = "Do you feel how it's growing?"
+			custom_text = "Mazes are getting bigger, no?"
 		elif Global.score < 35:
 			custom_text = "Halfway to the end!"
 		elif Global.score < 50:
@@ -33,7 +33,7 @@ func _ready():
 	elif Global.best_score < 5:
 		custom_text = "Good start!"
 	elif Global.best_score < 15:
-		custom_text = "Fire isn't at reach anymore."
+		custom_text = "Light isn't at reach anymore."
 	elif Global.best_score < 30:
 		custom_text = "You went far!"
 	elif Global.best_score < 40:
