@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://autoloads/global.gd" type="Script" id=1]
 [ext_resource path="res://autoloads/daughter-of-the-void.ogg" type="AudioStream" id=2]
+[ext_resource path="res://autoloads/sound-win/w-level_up.ogg" type="AudioStream" id=3]
+[ext_resource path="res://autoloads/sound-win/w-you_win.ogg" type="AudioStream" id=4]
+[ext_resource path="res://autoloads/sound-win/w-congratulations.ogg" type="AudioStream" id=5]
+[ext_resource path="res://autoloads/sound-lose/w-you_lose.ogg" type="AudioStream" id=6]
+[ext_resource path="res://autoloads/sound-win/w-objective_achieved.ogg" type="AudioStream" id=7]
+[ext_resource path="res://autoloads/sound-lose/w-game_over.ogg" type="AudioStream" id=8]
+[ext_resource path="res://autoloads/sound-lose/w-mission_failed.ogg" type="AudioStream" id=9]
+[ext_resource path="res://autoloads/sound-win/w-mission_completed.ogg" type="AudioStream" id=10]
+[ext_resource path="res://audio-random-player/audio-random-player.tscn" type="PackedScene" id=11]
 
 [node name="Global" type="Node"]
 script = ExtResource( 1 )
@@ -9,4 +18,13 @@ script = ExtResource( 1 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 volume_db = -20.0
-autoplay = true
+
+[node name="AudioWin" parent="." instance=ExtResource( 11 )]
+volume_db = -3.0
+audio_streams = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 4 ) ]
+just_once = true
+
+[node name="AudioLose" parent="." instance=ExtResource( 11 )]
+volume_db = -3.0
+audio_streams = [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ) ]
+just_once = true

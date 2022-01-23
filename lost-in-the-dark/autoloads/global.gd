@@ -3,17 +3,27 @@ extends Node
 var menu_scene_path : String = "res://menu/menu.tscn"
 var game_scene_path : String = "res://world/world.tscn"
 
+var width : int = 10
+var height : int = 10
+var p : float = 0.4
 var time_max : float = 30
+
 var time_left : float = time_max
-var score : int = -1 # -1 at start so you can score 0 later ..
-var best_score : int = 0
+var score : int = 34 # -1 at start so you can score 0 later ..
+var best_score : int = 48
+
 var random_seed : int = 0
-var width : int = 1
-var height : int = 1
 var current_seed : int = 0
 var current_state : int = 0
 
+var last_stream_position : float = 0
+var is_sound : bool = false
+
 onready var random_number_generator : RandomNumberGenerator = RandomNumberGenerator.new()
+
+onready var audio_stream_player : AudioStreamPlayer = $AudioStreamPlayer
+onready var audio_win_level : AudioStreamPlayer = $AudioWin
+onready var audio_lose_level : AudioStreamPlayer = $AudioLose
 
 func _ready():
 	randomize()
@@ -27,7 +37,13 @@ func randomize_random_number_generator() -> void:
 func reset_seed() -> void:
 	random_number_generator.seed = current_seed
 	random_number_generator.state = current_state
-	
+
+func refresh_level() -> void:
+	var level_info : Dictionary = Levels.get_level()
+	width = level_info.width
+	height = level_info.height
+	p = level_info.p
+	time_max = level_info.time
 
 func reset_score() -> void:
 	score = 0
@@ -39,10 +55,6 @@ func update_score(delta : int) -> void:
 	score += delta
 	if score > best_score:
 		best_score = score
-	
-func set_dimension(w : int, h : int) -> void:
-	width = w
-	height = h
 	
 func reload_scene() -> void:
 	var err : int = get_tree().reload_current_scene()
@@ -67,3 +79,16 @@ func _process(delta) -> void:
 func get_time_left() -> float:
 	return max(time_left, 0)
 	
+func set_is_sound(value : bool) -> void:
+	is_sound = value
+	if is_sound:
+		audio_stream_player.play(last_stream_position)
+	else:
+		last_stream_position = audio_stream_player.get_playback_position()
+		audio_stream_player.stop()
+		
+func play_win_level() -> void:
+	audio_win_level.is_playing = true
+	
+func play_lose_level() -> void:
+	audio_lose_level.is_playing = true

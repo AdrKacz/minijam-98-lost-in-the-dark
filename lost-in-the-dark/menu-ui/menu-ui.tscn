@@ -1,11 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/Kenney Rocket.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://menu-ui/menu-ui.gd" type="Script" id=2]
 [ext_resource path="res://menu-ui/score_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/musicOff.png" type="Texture" id=4]
+[ext_resource path="res://assets/musicOn.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
-size = 64
+size = 42
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -33,12 +35,12 @@ __meta__ = {
 [node name="CenterContainer" type="CenterContainer" parent="TitleMarginContainer"]
 margin_top = 64.0
 margin_right = 1024.0
-margin_bottom = 144.0
+margin_bottom = 117.0
 
 [node name="Label" type="Label" parent="TitleMarginContainer/CenterContainer"]
-margin_left = 76.0
-margin_right = 948.0
-margin_bottom = 80.0
+margin_left = 225.0
+margin_right = 798.0
+margin_bottom = 53.0
 custom_fonts/font = SubResource( 1 )
 text = "Lost in the dark"
 
@@ -65,7 +67,6 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -128.0
-mouse_filter = 2
 custom_constants/margin_bottom = 32
 __meta__ = {
 "_edit_use_anchors_": false
@@ -99,4 +100,43 @@ margin_bottom = 40.0
 custom_fonts/font = ExtResource( 3 )
 text = "Your best score is 0. You can do better!"
 
+[node name="SoundOffMarginContainer" type="MarginContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -50.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="SoundOffMarginContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+
+[node name="SoundOffButton" type="TextureButton" parent="SoundOffMarginContainer/CenterContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture_normal = ExtResource( 4 )
+
+[node name="SoundOnMarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -50.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="SoundOnMarginContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+
+[node name="SoundOnButton" type="TextureButton" parent="SoundOnMarginContainer/CenterContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture_normal = ExtResource( 5 )
+
 [connection signal="pressed" from="StartCenterContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="SoundOffMarginContainer/CenterContainer/SoundOffButton" to="." method="_on_SoundOffButton_pressed"]
+[connection signal="pressed" from="SoundOnMarginContainer/CenterContainer/SoundOnButton" to="." method="_on_SoundOnButton_pressed"]

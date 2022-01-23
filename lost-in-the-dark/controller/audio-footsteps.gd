@@ -24,4 +24,5 @@ func play_random():
 	if audio_streams.size() == 0:
 		return
 	stream = audio_streams[randi() % audio_streams.size()]
-	play()
+	if Global.is_sound:
+		play()

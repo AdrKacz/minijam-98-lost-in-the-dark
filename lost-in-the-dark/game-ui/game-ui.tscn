@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/Kenney Rocket.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://game-ui/game-ui.gd" type="Script" id=2]
+[ext_resource path="res://assets/Kenney Mini.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/musicOff.png" type="Texture" id=4]
+[ext_resource path="res://assets/musicOn.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
@@ -10,6 +13,16 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=1]
 size = 48
 font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 24
+font_data = ExtResource( 3 )
 
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
@@ -64,3 +77,83 @@ margin_right = 638.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 1 )
 text = "02.123"
+
+[node name="FocusCenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FocusButton" type="Button" parent="FocusCenterContainer"]
+margin_left = 286.0
+margin_top = 257.0
+margin_right = 738.0
+margin_bottom = 343.0
+custom_fonts/font = SubResource( 3 )
+text = "Click to move"
+flat = true
+
+[node name="SoundOffMarginContainer" type="MarginContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -50.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="SoundOffMarginContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+
+[node name="SoundOffButton" type="TextureButton" parent="SoundOffMarginContainer/CenterContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture_normal = ExtResource( 4 )
+
+[node name="SoundOnMarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -50.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="SoundOnMarginContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+
+[node name="SoundOnButton" type="TextureButton" parent="SoundOnMarginContainer/CenterContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture_normal = ExtResource( 5 )
+
+[node name="ReturnMenuMarginContainer" type="MarginContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -68.0
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="ReturnMenuMarginContainer"]
+margin_right = 1024.0
+margin_bottom = 36.0
+
+[node name="MainMenuButton" type="Button" parent="ReturnMenuMarginContainer/CenterContainer"]
+margin_left = 444.0
+margin_right = 579.0
+margin_bottom = 36.0
+custom_fonts/font = SubResource( 4 )
+text = "Main menu"
+flat = true
+
+[connection signal="pressed" from="FocusCenterContainer/FocusButton" to="." method="_on_FocusButton_pressed"]
+[connection signal="pressed" from="SoundOffMarginContainer/CenterContainer/SoundOffButton" to="." method="_on_SoundOffButton_pressed"]
+[connection signal="pressed" from="SoundOnMarginContainer/CenterContainer/SoundOnButton" to="." method="_on_SoundOnButton_pressed"]
+[connection signal="pressed" from="ReturnMenuMarginContainer/CenterContainer/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]

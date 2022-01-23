@@ -15,8 +15,9 @@ var direction : Vector3 = Vector3()
 onready var camera : Camera = $Camera
 onready var audio_footsteps : AudioStreamPlayer = $AudioFootsteps
 
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+# NOTE: Not used because released in browser (can't work)
+#func _ready():
+#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta):
 	process_input()
@@ -80,6 +81,10 @@ func process_sound():
 		audio_footsteps.is_playing = true
 	else:
 		audio_footsteps.is_playing = false
+		
+func controller_look_at(target : Vector3):
+	var angle : float = atan2(target.x, target.z)
+	rotate_y(angle)
 	
 func _input(event):
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
