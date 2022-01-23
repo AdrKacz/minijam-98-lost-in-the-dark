@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://world/world.gd" type="Script" id=1]
 [ext_resource path="res://controller/controller.tscn" type="PackedScene" id=2]
@@ -11,15 +11,24 @@
 [ext_resource path="res://world/doorOpen_000.ogg" type="AudioStream" id=9]
 [ext_resource path="res://world/doorOpen_001.ogg" type="AudioStream" id=10]
 [ext_resource path="res://world/doorOpen_002.ogg" type="AudioStream" id=11]
+[ext_resource path="res://world/audio-count-down.gd" type="Script" id=12]
+[ext_resource path="res://world/count-down/1.ogg" type="AudioStream" id=13]
+[ext_resource path="res://world/count-down/hurry_up.ogg" type="AudioStream" id=14]
+[ext_resource path="res://world/count-down/2.ogg" type="AudioStream" id=15]
+[ext_resource path="res://world/count-down/3.ogg" type="AudioStream" id=16]
+[ext_resource path="res://world/count-down/4.ogg" type="AudioStream" id=17]
+[ext_resource path="res://world/count-down/5.ogg" type="AudioStream" id=18]
+[ext_resource path="res://world/count-down/10.ogg" type="AudioStream" id=19]
+[ext_resource path="res://world/count-down/6.ogg" type="AudioStream" id=20]
+[ext_resource path="res://world/count-down/7.ogg" type="AudioStream" id=21]
+[ext_resource path="res://world/count-down/8.ogg" type="AudioStream" id=22]
+[ext_resource path="res://world/count-down/9.ogg" type="AudioStream" id=23]
 
 [node name="World" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -167.695, 0 )
 script = ExtResource( 1 )
 Ground = ExtResource( 5 )
 Wall = ExtResource( 3 )
-width = 20
-height = 20
-p = 0.4
 
 [node name="Controller" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 20, 0 )
@@ -37,6 +46,12 @@ environment = ExtResource( 7 )
 volume_db = -6.0
 audio_streams = [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ]
 just_once = true
+
+[node name="AudioCountDown" type="AudioStreamPlayer" parent="."]
+volume_db = -15.0
+script = ExtResource( 12 )
+count_downs = [ ExtResource( 13 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 19 ) ]
+hurry_up = ExtResource( 14 )
 
 [connection signal="hit_restart" from="Controller" to="." method="_on_Controller_hit_restart"]
 [connection signal="hit_focus" from="GameUI" to="." method="_on_GameUI_hit_focus"]

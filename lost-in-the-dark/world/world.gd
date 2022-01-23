@@ -106,6 +106,7 @@ func _process(_delta):
 	if Global.time_left < 0:
 		print('No time left!')
 		# TODO: End game animation
+		Global.play_time_over()
 		Global.load_menu_scene()
 
 # On fall

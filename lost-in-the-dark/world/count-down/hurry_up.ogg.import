@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/hurry_up.ogg-dd00c603f1e1f865db7fb7327a18ba19.oggstr"
+
+[deps]
+
+source_file="res://world/count-down/hurry_up.ogg"
+dest_files=[ "res://.import/hurry_up.ogg-dd00c603f1e1f865db7fb7327a18ba19.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

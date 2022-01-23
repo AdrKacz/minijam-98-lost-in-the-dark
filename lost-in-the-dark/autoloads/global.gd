@@ -9,8 +9,8 @@ var p : float = 0.4
 var time_max : float = 30
 
 var time_left : float = time_max
-var score : int = 34 # -1 at start so you can score 0 later ..
-var best_score : int = 48
+var score : int = -1 # -1 at start so you can score 0 later ..
+var best_score : int = 0
 
 var random_seed : int = 0
 var current_seed : int = 0
@@ -24,6 +24,7 @@ onready var random_number_generator : RandomNumberGenerator = RandomNumberGenera
 onready var audio_stream_player : AudioStreamPlayer = $AudioStreamPlayer
 onready var audio_win_level : AudioStreamPlayer = $AudioWin
 onready var audio_lose_level : AudioStreamPlayer = $AudioLose
+onready var audio_time_over : AudioStreamPlayer = $AudioTimeOver
 
 func _ready():
 	randomize()
@@ -92,3 +93,7 @@ func play_win_level() -> void:
 	
 func play_lose_level() -> void:
 	audio_lose_level.is_playing = true
+	
+func play_time_over() -> void:
+	if is_sound:
+		audio_time_over.play()

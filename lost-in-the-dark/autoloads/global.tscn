@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://autoloads/global.gd" type="Script" id=1]
 [ext_resource path="res://autoloads/daughter-of-the-void.ogg" type="AudioStream" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://autoloads/sound-lose/w-mission_failed.ogg" type="AudioStream" id=9]
 [ext_resource path="res://autoloads/sound-win/w-mission_completed.ogg" type="AudioStream" id=10]
 [ext_resource path="res://audio-random-player/audio-random-player.tscn" type="PackedScene" id=11]
+[ext_resource path="res://autoloads/time_over.ogg" type="AudioStream" id=12]
 
 [node name="Global" type="Node"]
 script = ExtResource( 1 )
@@ -28,3 +29,7 @@ just_once = true
 volume_db = -3.0
 audio_streams = [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ) ]
 just_once = true
+
+[node name="AudioTimeOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -10.0
