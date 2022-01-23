@@ -2,7 +2,6 @@ extends Spatial
 
 export (PackedScene) var Ground : PackedScene
 export (PackedScene) var Wall : PackedScene
-export (PackedScene) var Goal : PackedScene
 
 export (int, 1, 50) var width : int = 10 # width of the maze
 export (int, 1, 50) var height : int = 10 # height of the maze
@@ -98,11 +97,17 @@ func display_map(map : Array) -> void:
 				display_obj('ground', i, j)
 				display_obj('goal', i, j)
 
-# Check if controller stil on map
+# On no time left
+func _process(_delta):
+	if Global.time_left < 0:
+		print('No time left!')
+		# TODO: End game animation
+		Global.load_menu_scene()
+
+# On fall
 func _physics_process(_delta):
 	if controller.translation.y < -1:
 		print('You fall!')
-		seed(str(Global.current_seed).hash())
 		Global.reset_seed()
 		Global.reload_scene()
 
