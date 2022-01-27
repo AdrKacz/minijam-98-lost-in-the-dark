@@ -23,7 +23,6 @@ onready var random_number_generator : RandomNumberGenerator = RandomNumberGenera
 
 onready var audio_stream_player : AudioStreamPlayer = $AudioStreamPlayer
 onready var audio_win_level : AudioStreamPlayer = $AudioWin
-onready var audio_lose_level : AudioStreamPlayer = $AudioLose
 onready var audio_time_over : AudioStreamPlayer = $AudioTimeOver
 
 func _ready():
@@ -91,9 +90,6 @@ func set_is_sound(value : bool) -> void:
 func play_win_level() -> void:
 	audio_win_level.is_playing = true
 	
-func play_lose_level() -> void:
-	audio_lose_level.is_playing = true
-	
 func play_time_over() -> void:
 	if is_sound:
-		audio_time_over.play()
+		audio_time_over.is_playing = true

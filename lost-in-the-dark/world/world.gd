@@ -114,7 +114,6 @@ func _physics_process(_delta):
 	if controller.translation.y < -1:
 		print('You fall!')
 		# Play sound
-		Global.play_lose_level()
 		Global.reset_seed()
 		Global.reload_scene()
 

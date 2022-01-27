@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/Kenney Rocket.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://game-ui/game-ui.gd" type="Script" id=2]
 [ext_resource path="res://assets/Kenney Mini.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/musicOff.png" type="Texture" id=4]
 [ext_resource path="res://assets/musicOn.png" type="Texture" id=5]
+[ext_resource path="res://game-ui/tutorial.gd" type="Script" id=6]
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
@@ -14,6 +15,37 @@ font_data = ExtResource( 1 )
 size = 48
 font_data = ExtResource( 1 )
 
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("FocusButton:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "blink"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FocusButton:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="DynamicFont" id=3]
 size = 64
 outline_size = 1
@@ -22,6 +54,10 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 24
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 32
 font_data = ExtResource( 3 )
 
 [node name="GameUI" type="Control"]
@@ -79,11 +115,17 @@ custom_fonts/font = SubResource( 1 )
 text = "02.123"
 
 [node name="FocusCenterContainer" type="CenterContainer" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FocusCenterContainer"]
+autoplay = "blink"
+anims/RESET = SubResource( 5 )
+anims/blink = SubResource( 6 )
 
 [node name="FocusButton" type="Button" parent="FocusCenterContainer"]
 margin_left = 174.0
@@ -92,6 +134,32 @@ margin_right = 850.0
 margin_bottom = 343.0
 custom_fonts/font = SubResource( 3 )
 text = "Click to look around"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReturnMenuMarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -68.0
+custom_constants/margin_bottom = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="ReturnMenuMarginContainer"]
+margin_right = 1024.0
+margin_bottom = 36.0
+
+[node name="MainMenuButton" type="Button" parent="ReturnMenuMarginContainer/CenterContainer"]
+margin_left = 444.0
+margin_right = 579.0
+margin_bottom = 36.0
+custom_fonts/font = SubResource( 4 )
+text = "Main menu"
 flat = true
 
 [node name="SoundOffMarginContainer" type="MarginContainer" parent="."]
@@ -131,29 +199,35 @@ margin_right = 50.0
 margin_bottom = 50.0
 texture_normal = ExtResource( 5 )
 
-[node name="ReturnMenuMarginContainer" type="MarginContainer" parent="."]
-anchor_top = 1.0
+[node name="TutorialMarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -68.0
-custom_constants/margin_bottom = 32
+anchor_bottom = 0.5
+margin_top = -120.0
+margin_bottom = 120.0
+mouse_filter = 2
+custom_constants/margin_right = 400
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 200
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CenterContainer" type="CenterContainer" parent="ReturnMenuMarginContainer"]
-margin_right = 1024.0
-margin_bottom = 36.0
+[node name="CenterContainer" type="CenterContainer" parent="TutorialMarginContainer"]
+margin_left = 16.0
+margin_right = 624.0
+margin_bottom = 40.0
 
-[node name="MainMenuButton" type="Button" parent="ReturnMenuMarginContainer/CenterContainer"]
-margin_left = 444.0
-margin_right = 579.0
-margin_bottom = 36.0
-custom_fonts/font = SubResource( 4 )
-text = "Main menu"
-flat = true
+[node name="Label" type="Label" parent="TutorialMarginContainer/CenterContainer"]
+margin_left = 64.0
+margin_right = 544.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 7 )
+text = "Look around with your mouse"
 
 [connection signal="pressed" from="FocusCenterContainer/FocusButton" to="." method="_on_FocusButton_pressed"]
+[connection signal="pressed" from="ReturnMenuMarginContainer/CenterContainer/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 [connection signal="pressed" from="SoundOffMarginContainer/CenterContainer/SoundOffButton" to="." method="_on_SoundOffButton_pressed"]
 [connection signal="pressed" from="SoundOnMarginContainer/CenterContainer/SoundOnButton" to="." method="_on_SoundOnButton_pressed"]
-[connection signal="pressed" from="ReturnMenuMarginContainer/CenterContainer/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]

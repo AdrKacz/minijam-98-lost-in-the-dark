@@ -41,7 +41,9 @@ func get_level() -> Dictionary:
 	var p : float = 0.4
 	# Find time
 	var time : float = Global.time_max
-	if Global.score == 0:
+	if Global.score <= 4: # tutorial length
+		time = 99
+	elif Global.score <= 30:
 		time = 30
 	elif Global.score > 30:
 		time -= 0.5
